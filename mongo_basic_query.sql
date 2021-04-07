@@ -132,7 +132,9 @@ db.employees.count({first_name:/^J/})
 //23.insertOne
 //insert into employees (number,last_name,first_name,salary,department,status) values (1005,'Hong','Gildong',55000,'clerk','A')
 //insert into employees (number,last_name,first_name,salary,department,status) values (1006,'박','둘리',50000,'clerk','B')
-
+db.employees.insertOne({number:1005,last_name:"Hong",first_name:"Gildong",salary:55000,department:"clerk",status:"A"})
+//24.select * from employees where status = 'A'
+db.employees.insertOne({number:1006,last_name:"박",first_name:"둘리",salary:50000,department:"clerk",status:"A"})
 //24.select * from employees where status = 'A'
 
 //25.select * from employees where status in ('A','B)
