@@ -14,7 +14,9 @@ db.by_type.aggregate([
 ])
 
 //1. by_road_type : 강릉시(county 값) 교차로 내에서 일어난 총 사고 숫자를 출력한다.
-
+db.by_road_type.find({county:"강릉시"})
+db.by_road_type.find({county:"강릉시"},{"교차로내.accident_count":1})
+db.by_road_type.find({county:"강릉시"},{"교차로내.accident_count":1, _id:0, city_or_province:1, county:1})
 //2. by_road_type : 전국의 도로 종류 중에 “기타단일로” 에서 사망자수가 0 인 지역을 출력한다.
 
 //3. by_type : 전국의 “차대차” 사고에서 100 회 이상 사고가 발생하였지만, 사망자 수가 0 회인 지역을 출력한다.
