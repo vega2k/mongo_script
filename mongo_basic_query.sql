@@ -175,14 +175,16 @@ db.employees.updateOne({number:1005},{$set:{salary:57000}})
 db.employees.updateMany({last_name:/H/},{$inc:{salary:-500}})
 //38.update employees set salary = salary + 100 where number in (1005,1006)
 db.employees.updateMany({number:{$in:[1005,1006]}},{$inc:{salary:100}})
-//39.delete from employees where status = 'A'
 
 //update() operation uses the $unset operator to remove the fields status and salary
-//40. number가 1006 인 document의 status , salary  필드값 제거하기
+//39. number가 1006 인 document의 status , salary  필드값 제거하기
 db.employees.updateOne({number:1006},{$unset:{status:"", salary:0}})
 
-//first_name이 둘리인 document에 alias 라는 필드 추가
+//40.first_name이 둘리 인 document에 alias 라는 필드를 추가한다
 db.employees.updateOne({first_name:"둘리"},{$set:{alias:"Dooly"}})
+
+//41.delete from employees where alias = 'Dooly'
+db.employees.deleteMany({alias:"Dooly"})
 
 //students collection 생성
 db.createCollection("students")
@@ -212,3 +214,14 @@ db.students.updateOne( { _id: 1 }, { $rename: { "name.first": "name.fname" } } )
 //wife 라는 필드명이 없으므로 아무일도 발생하지 않는다
 db.students.updateOne( { _id: 1 }, { $rename: { 'wife': 'spouse' } } )
 db.students.find()
+
+
+//배열 데이터 처리
+db.createCollection("developer")
+db.developer.insertMany([
+ {name:"Rohit", language:["C#","Python","Java"], personal:{age:25,semesterMarks:[70,73.3,76.5,78.6]}},
+
+ {name:"Sumit", language:["Java","Perl","C#"], personal:{age:24,semesterMarks:[89,80.1,78,71]}}
+])
+db.developer.find()
+
