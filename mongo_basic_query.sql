@@ -178,4 +178,29 @@ db.employees.updateMany({number:{$in:[1005,1006]}},{$inc:{salary:100}})
 //39.delete from employees where status = 'A'
 
 //update() operation uses the $unset operator to remove the fields status and salary
-//number가 1006 인 document의 status , salary  필드값 제거하기
+//40. number가 1006 인 document의 status , salary  필드값 제거하기
+db.employees.updateOne({number:1006},{$unset:{status:"", salary:0}})
+
+
+//students collection 생성
+db.createCollection("students")
+db.students.insertMany([
+{
+  "_id": 1,
+  "alias": [ "The American Cincinnatus", "The American Fabius" ],
+  "mobile": "555-555-5555",
+  "nmae": { "first" : "george", "last" : "washington" }
+},
+{
+  "_id": 2,
+  "alias": [ "My dearest friend" ],
+  "mobile": "222-222-2222",
+  "nmae": { "first" : "abigail", "last" : "adams" }
+},
+{
+  "_id": 3,
+  "alias": [ "Amazing grace" ],
+  "mobile": "111-111-1111",
+  "nmae": { "first" : "grace", "last" : "hopper" }
+}
+])
