@@ -223,5 +223,15 @@ db.developer.insertMany([
 
  {name:"Sumit", language:["Java","Perl","C#"], personal:{age:24,semesterMarks:[89,80.1,78,71]}}
 ])
+db.developer.updateOne({name: "Rohit"}, {$push: {language: "C++"}})
+db.developer.updateOne({name: "Sumit"}, {$push: {language: {$each: ["C", "Ruby", "Go"]}}})
+db.developer.updateOne({name: "Rohit"}, {$push: {language: { $each: ["C", "Go"], $sort: 1}}})
+db.developer.updateOne({name: "Sumit"}, {$push: {language: {$each:["Scalar","Cobol"],$sort:-1, $slice:4}}})
+
+db.developer.updateOne({name: "Sumit"}, {$push: {"personal.semesterMarks": {$each: [89, 76.4]}}})
+
+//languate column 제거하기
+db.developer.updateMany({},{$unset:{languate:1}},false,true)
+
 db.developer.find()
 
