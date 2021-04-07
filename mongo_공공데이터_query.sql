@@ -50,7 +50,16 @@ db.area.find(
     {_id:0}
 )
 //8. by_month : 서울시에서 한달에 200 회 이상 교통사고가 발생한 지역의 행정구역명을 출력한다.
+db.by_month.find()
+db.by_month.find(
+    {city_or_province:"서울", "month_data.accident_count":{$gte:200}},
+    {_id:0, county:1,}
+)
 
+db.by_month.find(
+    {city_or_province:"서울", "month_data.accident_count":{$gte:200}},
+    {_id:0, county:1,"month_data.month":1}
+)
 //9. by_month : 1 월에 중상자 수가 0 명이고, 2 월에 사망자 수가 0 명인 광역단체명과 행정구역명을 출력한다.
 
 //10. by_road_type : 전국의 도로 종류 중 “기타단일로” 에서 사망자수가 0 인 광역단체명,행정구역명, 기타단일로의 사망자수를 출력한다.
