@@ -25,7 +25,10 @@ db.by_type.find(
     {_id:0, city_or_province:1, county:1}
 )
 //4. by_type : 전국의 “차대사람” 사고에서 사망자수가 0 회 이거나 중상자수가 0 회인 지역을 출력한다.
-
+db.by_type.find(
+    {type:"차대사람", $or:[{death_toll:0},{heavy_injury:0}]},
+    {_id:0, city_or_province:1, county:1}
+)
 //5. area : 행정구역명이 시 라는 이름으로 끝나는 지역의 수를 출력한다.
 
 //6. area : 행정구역명이 군 이면서 인구수가 10 만 이상인 곳을 출력한다.
