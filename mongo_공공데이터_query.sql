@@ -18,9 +18,12 @@ db.by_road_type.find({county:"강릉시"})
 db.by_road_type.find({county:"강릉시"},{"교차로내.accident_count":1})
 db.by_road_type.find({county:"강릉시"},{"교차로내.accident_count":1, _id:0, city_or_province:1, county:1})
 //2. by_road_type : 전국의 도로 종류 중에 “기타단일로” 에서 사망자수가 0 인 지역을 출력한다.
-
+db.by_road_type.find({"기타단일로.death_toll":0},{_id:0, city_or_province:1, county:1, 기타단일로:1})
 //3. by_type : 전국의 “차대차” 사고에서 100 회 이상 사고가 발생하였지만, 사망자 수가 0 회인 지역을 출력한다.
-
+db.by_type.find(
+    {type:"차대차", accident_count:{$gte:100}, death_toll:0},
+    {_id:0, city_or_province:1, county:1}
+)
 //4. by_type : 전국의 “차대사람” 사고에서 사망자수가 0 회 이거나 중상자수가 0 회인 지역을 출력한다.
 
 //5. area : 행정구역명이 시 라는 이름으로 끝나는 지역의 수를 출력한다.
