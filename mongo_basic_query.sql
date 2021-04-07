@@ -38,7 +38,7 @@ db.cappedCollection.insertOne({x:1})
 //db.cappedCollection.deleteMany({})
 
 for( i=0; i < 1000; i++) {
-    db.cappedCollection.insertOne({x:i})
+    db.cappedCollection.insertOne({"x":i})
 }
 
 db.cappedCollection.find().count()
@@ -57,12 +57,12 @@ db.runCommand({ "renameCollection": "my_db.emp", "to": "my_db.employees", "dropT
 
 use my_db
 
-
 //1.employee_db 생성
 //2.employees 컬렉션 생성
 //3. employees 컬렉션 capped 확인
+db.employees.isCapped()
 //4. employees 컬렉션 statistics 확인
-
+db.employees.stats()
 //5.document 추가 insertMany() 사용
 /*
   {"number":1001,"last_name":"Smith","first_name":"John","salary":62000,"department":"sales", hire_date:ISODate("2016-01-02")},
@@ -70,18 +70,27 @@ use my_db
   {"number":1003,"last_name":"Everest","first_name":"Brad","salary":71000,"department":"sales", hire_date:ISODate("2017-02-03")},
   {"number":1004,"last_name":"Horvath","first_name":"Jack","salary":42000,"department":"marketing", hire_date:ISODate("2017-06-01")},
 */
-
+db.employees.insertMany([
+  {"number":1001,"last_name":"Smith","first_name":"John","salary":62000,"department":"sales", hire_date:ISODate("2016-01-02")},
+  {"number":1002,"last_name":"Anderson","first_name":"Jane","salary":57500,"department":"marketing", hire_date:ISODate("2013-11-09")},
+  {"number":1003,"last_name":"Everest","first_name":"Brad","salary":71000,"department":"sales", hire_date:ISODate("2017-02-03")},
+  {"number":1004,"last_name":"Horvath","first_name":"Jack","salary":42000,"department":"marketing", hire_date:ISODate("2017-06-01")},
+])
 
 //6.document select all
-
+db.employees.find()
 //7.SELECT * FROM employees WHERE department='sales';
-
-//8.select * from employees where hire_date > "2017-01-01"
-
+db.employees.find({department:'sales'})
+//8.select * from employees where hire_date >= "2017-01-01"
+db.employees.find({
+    hire_date:{
+        $gte: ISODate("2017-01-01")
+    }
+})
 //9.select number,last_name,first_name from employees
-
+db.employees.find({},{number:1,last_name:true, first_name:1, _id:0})
 //10.select number,last_name,first_name from employees where number=1003
-
+db.employees.find({number:1003},{number:1,last_name:true, first_name:1, _id:0})
 //11.select * from employees where number = 1001 and department = 'sales'
 
 //12.select * from employees where number = 1002 or department = 'sales'
