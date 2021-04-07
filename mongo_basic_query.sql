@@ -99,25 +99,34 @@ db.employees.find({
 })
 //13.select * from employees where number in (1001,1003)
 db.employees.find({
-    number: {$in:[1001,1002]}
+    number: {$in:[1001,1003]}
 })
-
 //14.select * from employees where number not in (1001,1003)
-
+db.employees.find({
+    number: {$nin:[1001,1003]}
+})
 //15.select * from employees where last_name like '%e%'
-
-//16.select * from employees where firs_name like '%a%'
-
+db.employees.find({last_name:/e/})
+db.employees.find({last_name:{$regex:/e/}})
+//15.1 select * from employees where last_name like '%e%' or department='sales'
+db.employees.find({
+    $or:[{last_name:{$regex:/e/}},{department:'sales'}]
+})
+//16.select * from employees where firs_name like 'J%'
+db.employees.find({first_name:/^J/})
 //17.select * from employees where first_name like 'B%'
 
-//18.select * from employees where last_name like '%h'
-
+//18.select * from employees where last_name like '%k'
+db.employees.find({first_name:/k$/})
 //19.select * from employees order by department
-
+db.employees.find().sort({department:1})
+//select * from employees order by number desc
+db.employees.find().sort({number:-1})
 //20.select * from employees order by hire_date desc
-
+db.employees.find().sort({hire_date:-1})
 //21.select count(*) from employees
-
+db.employees.count()
+db.employees.count({first_name:/^J/})
 //22.db.employees.find().count() 않됨
 
 //23.insertOne
