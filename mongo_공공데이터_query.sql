@@ -33,7 +33,16 @@ db.by_type.find(
 db.area.find({county:/시$/},{_id:0}).sort({county:1})
 db.area.find({county:/시$/},{_id:0}).count()
 
-//6. area : 행정구역명이 군 이면서 인구수가 10 만 이상인 곳을 출력한다.
+//6. area : 행정구역명이 군 이면서 인구수가 10 만 이상인 곳을 출력한다.인구순서대로 ASC
+db.area.find(
+    {county:/군$/, population:{$gte:100000}},
+    {_id:0}
+).sort({population:-1})
+//6.1 area : 행정구역명이 시 이면서 인구수가 10 만 이상인 곳을 출력한다. 인구순서대로 DESC
+db.area.find(
+    {county:/시$/, population:{$gte:100000}},
+    {_id:0}
+).sort({population:-1})
 
 //7. area : 행정구역명이 구 이면서, 이름의 첫 글자 초성이 “ㅇ” 인 행정구역명을 출력한다.
 
