@@ -181,6 +181,8 @@ db.employees.updateMany({number:{$in:[1005,1006]}},{$inc:{salary:100}})
 //40. number가 1006 인 document의 status , salary  필드값 제거하기
 db.employees.updateOne({number:1006},{$unset:{status:"", salary:0}})
 
+//first_name이 둘리인 document에 alias 라는 필드 추가
+db.employees.updateOne({first_name:"둘리"},{$set:{alias:"Dooly"}})
 
 //students collection 생성
 db.createCollection("students")
@@ -204,3 +206,9 @@ db.students.insertMany([
   "nmae": { "first" : "grace", "last" : "hopper" }
 }
 ])
+
+db.students.updateMany( {}, { $rename: { "nmae": "name" } } )
+db.students.updateOne( { _id: 1 }, { $rename: { "name.first": "name.fname" } } )
+//wife 라는 필드명이 없으므로 아무일도 발생하지 않는다
+db.students.updateOne( { _id: 1 }, { $rename: { 'wife': 'spouse' } } )
+db.students.find()
