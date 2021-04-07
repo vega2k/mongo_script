@@ -157,13 +157,17 @@ db.employees.count({status:{$exists:false}})
 //31.hire_date column이 존재하는 document count 조회
 db.employees.count({hire_date:{$exists:true}})
 //32.select distinct(department) from employees
-
+db.employees.aggregate([
+    {$group:{_id:"$department"}}
+])
 //33.select * from employees where salary >= 50000
-
-//34.select * from emploees where salary < 50000
-
-//35.select * from employees where salary > 45000 and salary <= 60000
-
+db.employees.find({salary:{$gte:50000}})
+//34.select number,first_name, last_name, salary from emploees where salary < 50000
+db.employees.find({salary:{$gt:50000}},{number:1,first_name:1,last_name:1,salary:1,_id:0})
+//35.select number,first_name, last_name, salary, hire_date from employees where salary > 45000 and salary <= 60000
+db.employees.find(
+    {salary:{$gt:45000, $lte:60000}},
+    {number:1,first_name:1,last_name:1,salary:1,_id:0, hire_date:1})
 //36.update employees set salary = 57000 where number = 1005
 
 //37.update employees set last_name = '홍' where number = 1005
