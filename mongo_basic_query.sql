@@ -92,10 +92,15 @@ db.employees.find({},{number:1,last_name:true, first_name:1, _id:0})
 //10.select number,last_name,first_name from employees where number=1003
 db.employees.find({number:1003},{number:1,last_name:true, first_name:1, _id:0})
 //11.select * from employees where number = 1001 and department = 'sales'
-
+db.employees.find({number:1001, department:'sales'})
 //12.select * from employees where number = 1002 or department = 'sales'
-
+db.employees.find({
+    $or:[{number:1002},{department:'sales'}]
+})
 //13.select * from employees where number in (1001,1003)
+db.employees.find({
+    number: {$in:[1001,1002]}
+})
 
 //14.select * from employees where number not in (1001,1003)
 
