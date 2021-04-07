@@ -130,27 +130,32 @@ db.employees.count({first_name:/^J/})
 //22.db.employees.find().count() 않됨
 
 //23.insertOne
-//insert into employees (number,last_name,first_name,salary,department,status) values (1005,'Hong','Gildong',55000,'clerk','A')
-//insert into employees (number,last_name,first_name,salary,department,status) values (1006,'박','둘리',50000,'clerk','B')
+//insert into employees (number,last_name,first_name,salary,department,status)
+//values (1005,'Hong','Gildong',55000,'clerk','A')
+//insert into employees (number,last_name,first_name,salary,department,status)
+//values (1006,'박','둘리',50000,'clerk','B')
 db.employees.insertOne({number:1005,last_name:"Hong",first_name:"Gildong",salary:55000,department:"clerk",status:"A"})
 //24.select * from employees where status = 'A'
 db.employees.insertOne({number:1006,last_name:"박",first_name:"둘리",salary:50000,department:"clerk",status:"A"})
-//24.select * from employees where status = 'A'
 
+db.employees.find()
+//update employess set status = 'B' where number = 1005
+db.employees.updateOne({number:1005},{$set:{status:"B"}})
 //25.select * from employees where status in ('A','B)
-
+db.employees.find({status:{$in:['A','B']}})
 //26.status column이 존재하는 document 조회
-
+db.employees.find({status:{$exists:true}})
 //27.status column이 존재하지 않는 document 조회
-
+db.employees.find({status:{$exists:false}})
 //28.hire_date column이 존재하는 document 조회
-
+db.employees.find({hire_date:{$exists:true}})
 //29.hire_date column이 존재하지 않는 document 조회
+db.employees.find({hire_date:{$exists:false}})
 
 //30.status column이 존재하는 document count 조회
-
+db.employees.count({status:{$exists:false}})
 //31.hire_date column이 존재하는 document count 조회
-
+db.employees.count({hire_date:{$exists:true}})
 //32.select distinct(department) from employees
 
 //33.select * from employees where salary >= 50000
