@@ -169,8 +169,9 @@ db.employees.find(
     {salary:{$gt:45000, $lte:60000}},
     {number:1,first_name:1,last_name:1,salary:1,_id:0, hire_date:1})
 //36.update employees set salary = 57000 where number = 1005
+db.employees.updateOne({number:1005},{$set:{salary:57000}})
 
-//37.update employees set last_name = '홍' where number = 1005
+//37.update employees set salar = salary - 500 where last_name like 'H%'
 
 //38.update employees set salary = salary + 100 where number in (1005,1006)
 
