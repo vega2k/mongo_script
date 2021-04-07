@@ -216,7 +216,7 @@ db.students.updateOne( { _id: 1 }, { $rename: { 'wife': 'spouse' } } )
 db.students.find()
 
 
-//배열 데이터 처리
+//배열 데이터 추가 - $push 연산자 사용
 db.createCollection("developer")
 db.developer.insertMany([
  {name:"Rohit", language:["C#","Python","Java"], personal:{age:25,semesterMarks:[70,73.3,76.5,78.6]}},
@@ -235,3 +235,13 @@ db.developer.updateMany({},{$unset:{languate:1}},false,true)
 
 db.developer.find()
 
+//character collection 생성
+db.inventory.drop()
+db.createCollection("character")
+db.character.insertMany([
+ {name: 'x', inventory:['pen','cloth','pen']},
+ {name: 'y', inventory:['book','cloth'], position:{x:1, y:5}},
+ {name: 'z', inventory:['wood','pen'], position:{x:0, y:9}}
+])
+
+db.character.find()
