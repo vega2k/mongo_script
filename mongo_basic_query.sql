@@ -171,10 +171,10 @@ db.employees.find(
 //36.update employees set salary = 57000 where number = 1005
 db.employees.updateOne({number:1005},{$set:{salary:57000}})
 
-//37.update employees set salar = salary - 500 where last_name like 'H%'
-
+//37.update employees set salary = salary - 500 where last_name like 'H%'
+db.employees.updateMany({last_name:/H/},{$inc:{salary:-500}})
 //38.update employees set salary = salary + 100 where number in (1005,1006)
-
+db.employees.updateMany({number:{$in:[1005,1006]}},{$inc:{salary:100}})
 //39.delete from employees where status = 'A'
 
 //update() operation uses the $unset operator to remove the fields status and salary
