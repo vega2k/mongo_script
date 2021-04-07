@@ -30,6 +30,8 @@ db.by_type.find(
     {_id:0, city_or_province:1, county:1}
 )
 //5. area : 행정구역명이 시 라는 이름으로 끝나는 지역의 수를 출력한다.
+db.area.find({county:/시$/},{_id:0}).sort({county:1})
+db.area.find({county:/시$/},{_id:0}).count()
 
 //6. area : 행정구역명이 군 이면서 인구수가 10 만 이상인 곳을 출력한다.
 
