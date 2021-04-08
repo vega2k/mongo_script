@@ -75,9 +75,9 @@ db.by_road_type.find(
     {"기타단일로.death_toll":0},
     {_id:0, city_or_province:1, county:1, "기타단일로.death_toll":1}
 )
-//11. by_moth : 행정구역명이 구로 끝나고, 행정구역명의 첫글자 초성이 “ㅇ” 인 document 를
+//11. by_month : 행정구역명이 구로 끝나고, 행정구역명의 첫글자 초성이 “ㅇ” 인 document 를
 //찾아서 광역단체명, 행정구역명, 매월 사고 횟수가 150 회 이상인 월을 출력한다.
-//11. by_moth : 행정구역명이 구로 끝나고, 행정구역명의 첫글자 초성이 “ㅇ” 인 document 를
+//11. by_month : 행정구역명이 구로 끝나고, 행정구역명의 첫글자 초성이 “ㅇ” 인 document 를
 //  --- criteria
 //찾아서 광역단체명, 행정구역명, 매월 사고 횟수가 150 회 이상인 월을 출력한다.
 //  --- projection
