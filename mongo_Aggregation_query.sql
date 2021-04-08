@@ -204,7 +204,19 @@ db.orders.aggregate([
 //12. select cust_id, sum(li.qty) as qty from orders o, order_lineitem li where o_id = li.order_id
 //group by cust_id
 //$unwind 스테이지 사용
-
+db.orders.find()
+db.orders.count()
+db.orders.aggregate([
+    {
+        $unwind:"$items"
+    },
+    {
+        $group:{
+            _id:"$cust_id",
+            item_qty:{$sum:"$items.qty"}
+        }
+    }
+])
 
 /*
 13. select count(*)
