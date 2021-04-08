@@ -371,7 +371,8 @@ db.area.aggregate([
         $sort:{pop_sum_cnt:-1}
     }
 ])
-//3. local : 광역시도별 인건비의 평균 지출 비용 ( 소수점이하 버림, 큰 순서대로 정렬)- $match, $group, $project, $sort
+//3. local : 인건비의 광역시도별 평균 지출 비용 ( 소수점이하 버림, 큰 순서대로 정렬)- $match, $group, $project, $sort
+db.local.find()
 db.local.aggregate([
     {$match:{main_category:"인건비"}},
     {$group: {
@@ -382,6 +383,7 @@ db.local.aggregate([
     {$sort:{"인건비평균":-1}}
 ])
 //4. city_or_province : 자치단체별로 총 사용한 운영비와,세부항목별로 총 사용한 운영비를 같이 출력한다. - $facet, $group 스테이지
+
 //5. city_or_province : 자치단체를 랜덤하게 두곳을 골라서 올해 가장 많이 사용한 운영비 세부항목을 출력한다 - $group, $sort, $sample
 
 
@@ -389,9 +391,9 @@ db.local.aggregate([
 db.createCollection("movies")
 db.movies.insertMany(
  [
- { _id : 1, title : "Terminator 2", year : 1991, price : 100, category : [ "SF", "ACTION" ] }
- , { _id : 2, title : "Salt", year : 2010, price : 150, category : [ "ACTION", "CRIME" ] }
- , { _id : 3, title : "Dirty Dancing", year : 1987, price : 70, category : [ "DRAMA", "MUSIC","ROMANCE" ] }
+  { _id : 1, title : "Terminator 2", year : 1991, price : 100, category : [ "SF", "ACTION" ] },
+  { _id : 2, title : "Salt", year : 2010, price : 150, category : [ "ACTION", "CRIME" ] },
+  { _id : 3, title : "Dirty Dancing", year : 1987, price : 70, category : [ "DRAMA", "MUSIC","ROMANCE" ] }
  ]
 )
 db.movies.find()
@@ -404,23 +406,23 @@ db.movies.aggregate([ {
      ],
     "byPrice" : [
          {
-         $bucket : {
-         groupBy : "$price",
-         boundaries : [ 0, 50, 100, 150, 200],
-         output : {
-         "count" : { $sum : 1 },
-         "titles" : { $push : "$title" }
-         }
-     }
-    }
+             $bucket : {
+                 groupBy : "$price",
+                 boundaries : [ 0, 50, 100, 150, 200],
+                 output : {
+                 "count" : { $sum : 1 },
+                 "titles" : { $push : "$title" }
+                 }
+            }
+        }
     ],
-     "byYear(Auto)": [
+    "byYear(Auto)": [
         {
              $bucketAuto : {
                 groupBy : "$year",
-                buckets : 2
+                buckets : 4
             }
         }
-     ]
+    ]
    }
  }] )
