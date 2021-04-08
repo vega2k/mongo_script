@@ -91,4 +91,8 @@ db.by_month.find(
 
 db.by_month.find({county:"은평구"},{month_data:1})
 //12. by_month : 서울시에서 한달에 200 회 이상 사고가 발생한 document 를 찾고, 200 회
-//이상 사고가 발생한 월의 정보가 한달치만 출력되어야 한다.month_data, 행정구역명을 출력한다.
+//이상 사고가 발생한 월의 정보가 한달치만(month_data.$) 출력되어야 한다. month_data, 행정구역명을 출력한다.
+db.by_month.find(
+    {city_or_province:"서울", "month_data.accident_count":{$gte:200}},
+    {"month_data.$":1, county:1 }
+)
