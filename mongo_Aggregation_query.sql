@@ -153,7 +153,11 @@ db.orders.aggregate([
 ])
 
 //8. select status,sum(price) as total from orders group by status
-
+db.orders.aggregate([
+    {
+        $group:{_id:"$status", total:{$sum:"$price"}}
+    }
+])
 //9. select cust_id,ord_date,sum(price) as total from orders group by cust_id,ord_date having
 //total > 250
 
