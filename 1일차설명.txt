@@ -71,4 +71,30 @@ auto import : ctrl + shift + o(오우)
 return type 자동생성 : alt + shift + l(엘)
 
 
+//js
+function sayHello(msg) {
+  return "hello " + msg;
+}
+
+console.log(sayHello("aaa"));
+
+//람다식
+let sayHello2 = msg => "hello" + msg;
+
+
+Function Interface 
+:  추상메서드를 딱 하나만 가지고 있는 인터페이스
+:  람다식으로 표현할 수 있다.
+
+iterDoc.forEach(Consumer c)  ->
+Consumer가 함수형 인터페이스 이므로 accept() 추상메서드를 오버라이딩 하는 구문을 람다식으로  쓸 수 있다.
+void accept​(T t)
+
+iterDoc.forEach( doc -> System.out.println(doc));
+
+
+
+
+
+
 
