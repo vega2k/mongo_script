@@ -326,7 +326,7 @@ db.items.aggregate([
         $group:
         {
             _id: "$sizes",
-            countQuantity: {$sum:1},
+            countSizes: {$sum:1},
         }
      }
 ])
