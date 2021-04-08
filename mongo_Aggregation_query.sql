@@ -133,13 +133,13 @@ db.orders.aggregate([
         $sort:{"_id.cust_id":1}
     }
 ])
-
+db.orders.find()
 //6. select cust_id,count(*) from orders group by cust_id having count(*) > 1
 db.orders.aggregate([
     {$group:{_id:"$cust_id", count:{$sum:1}}},
     {$match:{count:{$gt:1}}}
 ])
-//7. select status,count(*) from orders group by status having count(*) > 1
+//7. select status,count(*) from orders group by status having count(*) > 2
 db.orders.aggregate([
     {
         $group:{
@@ -158,9 +158,19 @@ db.orders.aggregate([
         $group:{_id:"$status", total:{$sum:"$price"}}
     }
 ])
-//9. select cust_id,ord_date,sum(price) as total from orders group by cust_id,ord_date having
-//total > 250
-
+//9. select cust_id,ord_date,sum(price) as total from orders group by cust_id,ord_date having total > 350
+db.orders.aggregate([
+    {
+        $group:{_id:{cust_id:"$cust_id", order_date:{$dateToString:{format:"%Y-%m-%d",date:"$ord_date"}}},
+                total:{$sum:"$price"}}
+    },
+    {
+        $match:{total:{$gt:350}}
+    },
+    {
+        $sort:{"_id.cust_id":1}
+    }
+])
 //10. select cust_id,sum(price) as total from orders where status = 'B' group by cust_id
 
 //11. select cust_id,ord_date,sum(price) as total from orders where stauts ='B' group by
