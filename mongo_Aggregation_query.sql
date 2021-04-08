@@ -238,3 +238,16 @@ db.orders.aggregate([
         }
     }
 ])
+
+//items collection 생성
+db.createCollection("items")
+db.items.insertMany([
+{ "_id" : 1, "item" : "abc", "price" : 10, "quantity" : 2, "date" : ISODate("2014-01-01T08:00:00Z"),"sizes": [ "S", "M"] },
+{ "_id" : 2, "item" : "jkl", "price" : 20, "quantity" : 1, "date" : ISODate("2014-02-03T09:00:00Z"),"sizes": [ "S"] },
+{ "_id" : 3, "item" : "xyz", "price" : 5, "quantity" : 5, "date" : ISODate("2014-02-03T09:05:00Z"),"sizes": [ "S", "M","L"] },
+{ "_id" : 4, "item" : "abc", "price" : 10, "quantity" : 10, "date" : ISODate("2014-02-15T08:00:00Z"),"sizes": [ "S", "M","L"] },
+{ "_id" : 5, "item" : "xyz", "price" : 5, "quantity" : 10, "date" : ISODate("2014-02-15T09:05:00Z"),"sizes": [ "S", "M","L","XL"] },
+{ "_id" : 6, "item" : "xyz", "price" : 5, "quantity" : 5, "date" : ISODate("2014-02-15T12:05:10Z"),"sizes": [ "S", "M","L"] },
+{ "_id" : 7, "item" : "xyz", "price" : 5, "quantity" : 10, "date" : ISODate("2014-02-15T14:12:12Z"),"sizes": [ "S", "M","L","XL"] }
+])
+db.items.find()
