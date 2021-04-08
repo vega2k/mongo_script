@@ -85,11 +85,20 @@ db.orders.insertMany([
  }
 ])
 
-db.orders.count()
+db.orders.find()
 
 //1. select count(*) as count from orders
-
+db.orders.aggregate([
+    {
+        $group:{ _id: null, count: {$sum:1} }
+    }
+])
 //2. select sum(price) as total from orders
+db.orders.aggregate([
+    {
+        $group:{ _id:null, sum_price:{$sum:"$price"}}
+    }
+])
 
 //3. select cust_id,sum(price) as total from orders group by cust_id
 
