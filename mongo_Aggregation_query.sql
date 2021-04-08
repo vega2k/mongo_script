@@ -265,3 +265,35 @@ db.items.aggregate([
      }
  }
 ])
+//$first
+db.items.aggregate(
+ [
+     {
+         $group:
+         {
+            _id: "$item",
+            firstSalesDate: { $first: "$date" }
+         }
+     },
+     {
+        $sort: { item: 1, date: 1 }
+     }
+ ]
+)
+//$last
+db.items.aggregate(
+ [
+     {
+         $group:
+         {
+            _id: "$item",
+            firstSalesDate: { $last: "$date" }
+         }
+     },
+     {
+        $sort: { item: 1, date: 1 }
+     }
+ ]
+)
+
+
