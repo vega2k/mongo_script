@@ -344,6 +344,18 @@ db.items.aggregate([
 ])
 
 //1. area : 광역시도별 건수 - $group, $sort
+db.area.find()
+db.area.aggregate([
+    {
+        $group:{
+            _id:"$city_or_province",
+            count:{$sum:1}
+        }
+    },
+    {
+        $sort:{count:-1}
+    }
+])
 //2. area: 광역시도별 인구수의 합계 ( 인구수 250 만 보다 크고, 많은 순서대로 정렬) - $group, $match, $sort
 //3. local : 광역시도별 인건비의 평균 지출 비용 ( 소수점이하 버림, 큰 순서대로 정렬)- $match, $group, $project, $sort
 //4. city_or_province : 자치단체별로 총 사용한 운영비와,세부항목별로 총 사용한 운영비를 같이 출력한다. - $facet, $group 스테이지
