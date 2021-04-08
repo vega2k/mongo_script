@@ -77,6 +77,18 @@ db.by_road_type.find(
 )
 //11. by_moth : 행정구역명이 구로 끝나고, 행정구역명의 첫글자 초성이 “ㅇ” 인 document 를
 //찾아서 광역단체명, 행정구역명, 매월 사고 횟수가 150 회 이상인 월을 출력한다.
+//11. by_moth : 행정구역명이 구로 끝나고, 행정구역명의 첫글자 초성이 “ㅇ” 인 document 를
+//  --- criteria
+//찾아서 광역단체명, 행정구역명, 매월 사고 횟수가 150 회 이상인 월을 출력한다.
+//  --- projection
+db.by_month.find(
+    {county:{ $regex:/구$/, $gte:"아", $lt:"자"}},
+    {
+        month_data:{$elemMatch:{accident_count:{$gte:150}}},
+        city_or_province:1, county:1, "month_data.month":1
+    }
+  )
 
+db.by_month.find({county:"은평구"},{month_data:1})
 //12. by_month : 서울시에서 한달에 200 회 이상 사고가 발생한 document 를 찾고, 200 회
 //이상 사고가 발생한 월의 정보가 한달치만 출력되어야 한다.month_data, 행정구역명을 출력한다.
