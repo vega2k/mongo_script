@@ -171,7 +171,12 @@ db.orders.aggregate([
         $sort:{"_id.cust_id":1}
     }
 ])
-//10. select cust_id,sum(price) as total from orders where status = 'B' group by cust_id
+//10. select cust_id,sum(price) as total from orders where status = 'B' group by cust_id order by cust_id
+db.orders.aggregate([
+    {$match:{status:"B"}},
+    {$group:{_id:"$cust_id", total:{$sum:"$price"}}},
+    {$sort:{_id:1}}
+])
 
 //11. select cust_id,ord_date,sum(price) as total from orders where stauts ='B' group by
 //cust_id,ord_date having total > 250
