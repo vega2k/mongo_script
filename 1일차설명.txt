@@ -1,0 +1,75 @@
+DataGrip 상에서 sql문 작성 github에 code 공유 
+1. MongoDB 설치
+ : mongodb-win32-x86_64-2012plus-4.2.1-signed.msi  설치함
+ : 윈도우 환경변수 PATH에 아래의 디렉토리를 추가한다
+    C:\Program Files\MongoDB\Server\4.2\bin 
+
+2. Robo3T : Robomongo (shell 입력 가능하지만 )
+ : robo3t-1.3.1-windows-x86_64-7419c406.exe  설치함
+ : 개인정보 입력하지 않아도 됨
+
+3. DataGrip 설치 후 주로 사용해서  sql 문 작성
+ - 윈도우 계정명 한글이면 잘 동작하지 않습니다. 
+ c:\mongo_script 폴더를 생성하고 open project로 해당 폴더를 열어준다.
+ mongodb 연결하기 
+ + 아이콘 선택 -> Data Source -> MongoDB
+ : driver download 하고 Test Connection 확인
+-----------------------------------------------------------
+1일차 
+1. MongoDB와 RDB와 비교
+ DB <=> DB
+ Collection <=> Table
+ Document, Field <=> Row, Column
+ (Json포맷, Bson (binary)
+2. MongoDB상에서 CRUD
+ - 조회 : find()
+ - 등록 : insertOne(), insertMany()
+ - 수정 : updateOne(), updateMany()
+ - 삭제 : deleteOne(), deleteMany()
+2.1 MongoDB 배열데이터 처리하는 부분
+2.2 공공데이터 활용
+
+2일차 
+3. 데이터 집계 기능
+ - aggregate() 
+   1. 기본 스테이지
+   $group - grouping
+   $match - filtering
+   $sort - sort
+   $project - select
+   $unwind - 배열의 데이터 분리
+   $sortByCount - counting하고 정렬
+   2. 고급 스테이지
+   $facet
+   $bucket
+   $bucketAuto
+   
+   3. 연산자
+   $sum, $min, $max, $first, $last, $avg, $gt, $year, $month, $dayOfMonth, $dateToString, $multiply, $truc 
+  
+ 
+   
+
+3.2 공공데이터 활용
+
+4. MongoDB와 Java 연동
+
+jdk11 / Eclipse java developer
+
+sql 파일의 오른쪽 메뉴에서
+more run/debug -> modify run configuration
+
+jdk8이상 
+
+
+
+C:\Users\vega2\AppData\Roaming\JetBrains\DataGrip2021.1\
+consoles\db\51b1b688-a308-4d63-a10e-25ecf68f7c3c
+
+
+mongoimport --db my_db --collection area --file area.json
+mongoimport --db my_db --collection by_month --file by_month.json
+mongoimport --db my_db --collection by_road_type --file by_road_type.json
+mongoimport --db my_db --collection by_type --file by_type.json
+
+
