@@ -115,7 +115,12 @@ db.orders.aggregate([
     }
 ])
 //5. select cust_id,ord_date,sum(price) as total from orders group by cust_id,ord_date
-
+db.orders.aggregate([
+    {
+        $group:{_id:{_id:"$cust_id", order_date:{$dateToString:{format:"%Y-%m-%d",date:"$ord_date"}}},
+                total:{$sum:"$price"}}
+    }
+])
 //6. select cust_id,count(*) from orders group by cust_id having count(*) > 1
 
 //7. select status,count(*) from orders group by status having count(*) > 1페이지 33 | 37
