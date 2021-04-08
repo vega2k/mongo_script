@@ -295,5 +295,40 @@ db.items.aggregate(
      }
  ]
 )
+//$min
+db.items.aggregate(
+ [
+     {
+         $group:
+         {
+            _id: "$item",
+            min_quantity: { $min: "$quantity" }
+         }
+     },
+     {
+        $sort: { item: 1, quantity: 1 }
+     }
+ ]
+)
+
+//$unwind stage
+db.items.aggregate([
+ {
+    $unwind:"$sizes"
+ }
+])
+
+db.items.aggregate([
+     {
+        $unwind:"$sizes"
+     },
+     {
+        $group:
+        {
+            _id: "$sizes",
+            countQuantity: {$sum:1},
+        }
+     }
+])
 
 
