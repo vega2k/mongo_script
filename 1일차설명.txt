@@ -56,20 +56,19 @@ DataGrip 상에서 sql문 작성 github에 code 공유
 
 jdk11 / Eclipse java developer
 
-sql 파일의 오른쪽 메뉴에서
-more run/debug -> modify run configuration
-
-jdk8이상 
-
-
-
-C:\Users\vega2\AppData\Roaming\JetBrains\DataGrip2021.1\
-consoles\db\51b1b688-a308-4d63-a10e-25ecf68f7c3c
-
 
 mongoimport --db my_db --collection area --file area.json
 mongoimport --db my_db --collection by_month --file by_month.json
 mongoimport --db my_db --collection by_road_type --file by_road_type.json
 mongoimport --db my_db --collection by_type --file by_type.json
+
+
+이클립스단축키
+code format : ctrl + shift + f
+save : ctrl + s
+run : ctrl + f11
+auto import : ctrl + shift + o(오우)
+return type 자동생성 : alt + shift + l(엘)
+
 
 
