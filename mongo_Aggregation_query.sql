@@ -134,7 +134,10 @@ db.orders.aggregate([
     }
 ])
 //6. select cust_id,count(*) from orders group by cust_id having count(*) > 1
-
+db.orders.aggregate([
+    {$group:{_id:"$cust_id", count:{$sum:1}}},
+    {$match:{count:{$gt:1}}}
+])
 //7. select status,count(*) from orders group by status having count(*) > 1페이지 33 | 37
 
 //8. select status,sum(price) as total from orders group by status
