@@ -99,11 +99,21 @@ db.orders.aggregate([
         $group:{ _id:null, sum_price:{$sum:"$price"}}
     }
 ])
-
 //3. select cust_id,sum(price) as total from orders group by cust_id
-
+db.orders.aggregate([
+    {
+        $group:{_id:"$cust_id", total:{$sum:"$price"}}
+    }
+])
 //4. select cust_id,sum(price) as total from orders group by cust_id order by total desc
-
+db.orders.aggregate([
+    {
+        $group:{_id:"$cust_id", total:{$sum:"$price"}}
+    },
+    {
+        $sort:{total:-1}
+    }
+])
 //5. select cust_id,ord_date,sum(price) as total from orders group by cust_id,ord_date
 
 //6. select cust_id,count(*) from orders group by cust_id having count(*) > 1
