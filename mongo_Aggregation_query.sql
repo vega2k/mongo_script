@@ -123,10 +123,14 @@ db.orders.insertOne({
  items: [ { sku: "jkl", qty: 45, price: 2 },
  { sku: "abv", qty: 45, price: 3 } ]
  })
+
 db.orders.aggregate([
     {
         $group:{_id:{_id:"$cust_id", order_date:{$dateToString:{format:"%Y-%m-%d",date:"$ord_date"}}},
                 total:{$sum:"$price"}}
+    },
+    {
+        $sort:{total:-1}
     }
 ])
 //6. select cust_id,count(*) from orders group by cust_id having count(*) > 1
