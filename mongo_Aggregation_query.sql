@@ -115,6 +115,14 @@ db.orders.aggregate([
     }
 ])
 //5. select cust_id,ord_date,sum(price) as total from orders group by cust_id,ord_date
+db.orders.insertOne({
+ cust_id: "abc456",
+ ord_date: ISODate("2012-04-11T16:04:11.102Z"),
+ status: 'C',
+ price: 1000,
+ items: [ { sku: "jkl", qty: 45, price: 2 },
+ { sku: "abv", qty: 45, price: 3 } ]
+ })
 db.orders.aggregate([
     {
         $group:{_id:{_id:"$cust_id", order_date:{$dateToString:{format:"%Y-%m-%d",date:"$ord_date"}}},
