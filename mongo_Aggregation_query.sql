@@ -251,3 +251,17 @@ db.items.insertMany([
 { "_id" : 7, "item" : "xyz", "price" : 5, "quantity" : 10, "date" : ISODate("2014-02-15T14:12:12Z"),"sizes": [ "S", "M","L","XL"] }
 ])
 db.items.find()
+
+db.items.aggregate([
+ {
+     $group:{
+         _id: { year:{$year:"$date"},
+                month:{$month:"$date"},
+                day:{$dayOfMonth:"$date"}
+              },
+         totalPrice: {$sum:{$multiply:["$price","$quantity"]}},
+         avgQuantity: {$avg:"$quantity"},
+         count: {$sum:1}
+     }
+ }
+])
