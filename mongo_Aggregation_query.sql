@@ -407,7 +407,16 @@ db.city_or_province.aggregate([
     }
 ])
 //5. city_or_province : 자치단체를 랜덤하게 두곳을 골라서 올해 가장 많이 사용한 운영비 세부항목을 출력한다 - $group, $sort, $sample
-
+db.city_or_province.aggregate([
+    {$sort:{this_term_expense:-1}},
+    {$group:{
+        _id:"$city_or_province",
+        main_catetory:{$first:"$main_category"},
+        sub_category:{$first:"$sub_category"},
+        this_term_expense:{$first:"$this_term_expense"}
+    }},
+    {$sample:{size:4}}
+])
 
 //$facet, $bucket, $bucketAuto
 db.createCollection("movies")
