@@ -195,8 +195,9 @@ db.orders.aggregate([
         $group:{_id:{cust_id:"$cust_id", order_date:{$dateToString:{format:"%Y-%m-%d",date:"$ord_date"}}},
                 total:{$sum:"$price"}}
     },
+    {$match:{total:{$gt:140}}},
     {
-        $sort:{"_id.cust_id":1}
+        $sort:{"_id.order_date":1}
     }
 ])
 //12. select cust_id, sum(li.qty) as qty from orders o, order_lineitem li where o_id = li.order_id
