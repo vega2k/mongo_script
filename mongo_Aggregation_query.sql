@@ -383,7 +383,29 @@ db.local.aggregate([
     {$sort:{"인건비평균":-1}}
 ])
 //4. city_or_province : 자치단체별로 총 사용한 운영비와,세부항목별로 총 사용한 운영비를 같이 출력한다. - $facet, $group 스테이지
-
+db.city_or_province.aggregate([
+    {
+        $facet:{
+            by_city_or_province:[
+                {
+                    $group:{
+                        _id:"$city_or_province",
+                        sum_expense: {$sum:"$this_term_expense"}
+                    }
+                }
+            ],
+            by_sub_category:[
+                {
+                    $group:{
+                        _id:"$sub_category",
+                        main_category:{$first:"$main_category"},
+                        sum_expense:{$sum:"$this_term_expense"}
+                    }
+                }
+            ]
+        }
+    }
+])
 //5. city_or_province : 자치단체를 랜덤하게 두곳을 골라서 올해 가장 많이 사용한 운영비 세부항목을 출력한다 - $group, $sort, $sample
 
 
