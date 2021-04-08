@@ -86,3 +86,38 @@ db.orders.insertMany([
 ])
 
 db.orders.count()
+
+//1. select count(*) as count from orders
+
+//2. select sum(price) as total from orders
+
+//3. select cust_id,sum(price) as total from orders group by cust_id
+
+//4. select cust_id,sum(price) as total from orders group by cust_id order by total desc
+
+//5. select cust_id,ord_date,sum(price) as total from orders group by cust_id,ord_date
+
+//6. select cust_id,count(*) from orders group by cust_id having count(*) > 1
+
+//7. select status,count(*) from orders group by status having count(*) > 1페이지 33 | 37
+
+//8. select status,sum(price) as total from orders group by status
+
+//9. select cust_id,ord_date,sum(price) as total from orders group by cust_id,ord_date having
+//total > 250
+
+//10. select cust_id,sum(price) as total from orders where status = 'B' group by cust_id
+
+//11. select cust_id,ord_date,sum(price) as total from orders where stauts ='B' group by
+//cust_id,ord_date having total > 250
+
+//12. select cust_id, sum(li.qty) as qty from orders o, order_lineitem li where o_id = li.order_id
+//group by cust_id
+/*
+13. select count(*)
+ from (
+ select cust_id,ord_date
+ from orders
+ group by cust_id,ord_date
+ ) as d
+*/
