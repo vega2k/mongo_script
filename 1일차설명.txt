@@ -46,8 +46,6 @@ DataGrip 상에서 sql문 작성 github에 code 공유
    
    3. 연산자
    $sum, $min, $max, $first, $last, $avg, $gt, $year, $month, $dayOfMonth, $dateToString, $multiply, $truc 
-  
- 
    
 
 3.2 공공데이터 활용
