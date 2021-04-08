@@ -177,9 +177,9 @@ db.orders.aggregate([
     {$group:{_id:"$cust_id", total:{$sum:"$price"}}},
     {$sort:{_id:1}}
 ])
-
+db.orders.find({status:"B"},{cust_id:1,price:1,status:1,_id:0})
 //11. select cust_id,ord_date,sum(price) as total from orders where stauts ='B' group by
-//cust_id,ord_date having total > 250
+//cust_id,ord_date having total > 140
 db.orders.insertOne({
  cust_id: "abc456",
  ord_date: ISODate("2012-04-20T16:04:11.102Z"),
@@ -200,8 +200,12 @@ db.orders.aggregate([
         $sort:{"_id.order_date":1}
     }
 ])
+
 //12. select cust_id, sum(li.qty) as qty from orders o, order_lineitem li where o_id = li.order_id
 //group by cust_id
+//$unwind 스테이지 사용
+
+
 /*
 13. select count(*)
  from (
@@ -210,3 +214,27 @@ db.orders.aggregate([
  group by cust_id,ord_date
  ) as d
 */
+db.orders.aggregate([
+    {
+        $group:{
+            _id:{cust_id:"$cust_id",
+                 order_date:{$dateToString:{format:"%Y-%m-%d",date:"$ord_date"}}}
+        }
+    },
+    {
+        $group:{
+            _id:null,
+            count:{$sum:1}
+        }
+    }
+])
+
+db.orders.aggregate([
+    {
+        $group:{
+            _id:{cust_id:"$cust_id",
+                 order_date:{$dateToString:{format:"%Y-%m-%d",date:"$ord_date"}}},
+             count:{$sum:1}
+        }
+    }
+])
