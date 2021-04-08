@@ -372,14 +372,14 @@ db.area.aggregate([
     }
 ])
 //3. local : 광역시도별 인건비의 평균 지출 비용 ( 소수점이하 버림, 큰 순서대로 정렬)- $match, $group, $project, $sort
-db.local.find()
 db.local.aggregate([
     {$match:{main_category:"인건비"}},
     {$group: {
         _id:"$city_or_province",
         expense_avg:{$avg:"$this_term_expense"}
     }},
-    {$sort:{expense_avg:-1}}
+    {$project: {"인건비평균":{$trunc:["$expense_avg",0]}}},
+    {$sort:{"인건비평균":-1}}
 ])
 //4. city_or_province : 자치단체별로 총 사용한 운영비와,세부항목별로 총 사용한 운영비를 같이 출력한다. - $facet, $group 스테이지
 //5. city_or_province : 자치단체를 랜덤하게 두곳을 골라서 올해 가장 많이 사용한 운영비 세부항목을 출력한다 - $group, $sort, $sample
