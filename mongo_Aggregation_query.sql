@@ -180,7 +180,25 @@ db.orders.aggregate([
 
 //11. select cust_id,ord_date,sum(price) as total from orders where stauts ='B' group by
 //cust_id,ord_date having total > 250
+db.orders.insertOne({
+ cust_id: "abc456",
+ ord_date: ISODate("2012-04-20T16:04:11.102Z"),
+ status: 'B',
+ price: 2000,
+ items: [ { sku: "jkl", qty: 45, price: 2 },
+ { sku: "abv", qty: 45, price: 3 } ]
+ })
 
+db.orders.aggregate([
+    {$match:{status:"B"}},
+    {
+        $group:{_id:{cust_id:"$cust_id", order_date:{$dateToString:{format:"%Y-%m-%d",date:"$ord_date"}}},
+                total:{$sum:"$price"}}
+    },
+    {
+        $sort:{"_id.cust_id":1}
+    }
+])
 //12. select cust_id, sum(li.qty) as qty from orders o, order_lineitem li where o_id = li.order_id
 //group by cust_id
 /*
